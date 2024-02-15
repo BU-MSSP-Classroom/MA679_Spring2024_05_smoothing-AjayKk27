@@ -16,7 +16,7 @@ pacman::p_load(ISLR
                ,HSAUR2
                ,mboost
                ,rpart
-               ,mgcv
+               #,mgcv
                ,wordcloud
                ,knitr,TTR,zoo)
 
@@ -130,7 +130,9 @@ data(College,package = "ISLR2")
 Your code:
 ```{r,echo=TRUE}
 #
-#
+training_vec<- sample(1:777, 543, replace=FALSE)
+training_data<- College[training_vec,]
+test_data<- College[-training_vec,]
 ```
 
 Your answer:
@@ -144,12 +146,14 @@ Please write your answer in full sentences.
 
 (b) Fit a GAM on the training data, using out-of-state tuition as the response and the features selected in the previous step as the predictors. Plot the results, and explain your findings.
 
-
-
 Your code:
 ```{r,echo=TRUE}
 #
 #
+training_data$Private<- ifelse(training_data$Private=='Yes',1,0)
+test_data$Private<- ifelse(test_data$Private=='Yes',1,0)
+gam_fit<- gam(Outstate~ perc.alumni+Grad.Rate, data=training_data)
+plot.Gam(gam_fit)
 ```
 
 Your answer:
